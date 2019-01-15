@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<yandex>
+
+    <zookeeper-servers>
+        <node index="1">
+            <host>zoo1</host>
+            <port>2181</port>
+        </node>
+        <node index="2">
+            <host>zoo2</host>
+            <port>2181</port>
+        </node>
+        <node index="3">
+            <host>zoo3</host>
+            <port>2181</port>
+        </node>
+    </zookeeper-servers>
+
+    <clickhouse_remote_servers>
+        <test_shard>
+            <shard>
+                <replica>
+                    <host>localhost</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+            <shard>
+                <replica>
+                    <host>server2</host>
+                    <port>9000</port>
+                </replica>
+            </shard>
+        </test_shard>
+    </clickhouse_remote_servers>
+
+    <macros>
+        <id_shard>01</id_shard>
+        <replica>localhost</replica>
+    </macros>
+
+</yandex>

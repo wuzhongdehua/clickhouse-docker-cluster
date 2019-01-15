@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<yandex>
+
+    <zookeeper-servers>
+        <node index="1">
+            <host>zoo1</host>
+            <port>2181</port>
+        </node>
+        <node index="2">
+            <host>zoo2</host>
+            <port>2181</port>
+        </node>
+        <node index="3">
+            <host>zoo3</host>
+            <port>2181</port>
+        </node>
+    </zookeeper-servers>
+
+    <macros>
+        <id_shard>02</id_shard>
+        <replica>server4</replica>
+    </macros>
+
+</yandex>

@@ -1,0 +1,110 @@
+version: '3.7'
+services:
+
+  client:
+    image: yandex/clickhouse-client
+    container_name: client
+    restart: on-failure
+    networks:
+      default:
+        ipv4_address: 172.19.237.11
+    entrypoint: /bin/bash
+    tty: true
+
+  server1:
+    image: yandex/clickhouse-server
+    container_name: server1
+    restart: on-failure
+    ulimits:
+      nofile: 262144
+    networks:
+      default:
+        ipv4_address: 172.19.237.101
+    volumes:
+      - ./configs/server1.xml:/etc/metrika.xml
+
+  server2:
+    image: yandex/clickhouse-server
+    container_name: server2
+    restart: on-failure
+    ulimits:
+      nofile: 262144
+    networks:
+      default:
+        ipv4_address: 172.19.237.102
+    volumes:
+      - ./configs/server2.xml:/etc/metrika.xml
+
+  server3:
+    image: yandex/clickhouse-server
+    container_name: server3
+    restart: on-failure
+    ulimits:
+      nofile: 262144
+    networks:
+      default:
+        ipv4_address: 172.19.237.103
+    volumes:
+      - ./configs/server3.xml:/etc/metrika.xml
+
+  server4:
+    image: yandex/clickhouse-server
+    container_name: server4
+    restart: on-failure
+    ulimits:
+      nofile: 262144
+    networks:
+      default:
+        ipv4_address: 172.19.237.104
+    volumes:
+      - ./configs/server4.xml:/etc/metrika.xml
+
+  zoo1:
+    image: zookeeper
+    container_name: zoo1
+    restart: always
+    hostname: zoo1
+    ports:
+      - 2181:2181
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=0.0.0.0:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
+    networks:
+      default:
+        ipv4_address: 172.19.237.201
+
+  zoo2:
+    image: zookeeper
+    container_name: zoo2
+    restart: always
+    hostname: zoo2
+    ports:
+      - 2182:2181
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=0.0.0.0:2888:3888 server.3=zoo3:2888:3888
+    networks:
+      default:
+        ipv4_address: 172.19.237.202
+
+  zoo3:
+    image: zookeeper
+    container_name: zoo3
+    restart: always
+    hostname: zoo3
+    ports:
+      - 2183:2181
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=0.0.0.0:2888:3888
+    networks:
+      default:
+        ipv4_address: 172.19.237.203
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.19.237.0/24
