@@ -1,6 +1,18 @@
 version: '3.7'
 services:
 
+  app:
+    image: python
+    container_name: app
+    restart: on-failure
+    networks:
+      default:
+        ipv4_address: 172.19.237.10
+    volumes:
+      - ./app:/app
+    entrypoint: /bin/bash
+    tty: true
+
   client:
     image: yandex/clickhouse-client
     container_name: client
