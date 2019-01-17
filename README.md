@@ -24,6 +24,14 @@ The project shows an example of a serial connection of cluster instances.
 
 * At first there is one instance of cluster.
 
+* Creating tables:
+
+    `docker-compose exec app python app/create.py`
+
+    This command creates replicated tables 'test_shared' with custom
+    composite partition key on all clickHouse servers.
+    Also it creates distributed table 'test' on server1
+
 * Connect the second shard:
 
     `rm -f configs/server1.xml && ln -s server1/distributed.xml configs/server1.xml`
