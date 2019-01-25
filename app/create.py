@@ -1,6 +1,18 @@
+import argparse
 from clickhouse_driver import Client
 
-for server in ['server1', 'server2', 'server3', 'server4']:
+parser = argparse.ArgumentParser(description='Creation clickHouse tables')
+parser.add_argument('step', choices=['init', 'rep'], help='execution step')
+
+args = parser.parse_args()
+servers = []
+
+if args.step == 'init':
+    servers = ['server1', 'server2']
+else:
+    servers = ['server3', 'server4']
+
+for server in servers:
     client = Client(server)
     client.execute(
         'CREATE TABLE IF NOT EXISTS test_shared ('
