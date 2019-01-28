@@ -18,7 +18,7 @@ The project shows an example of a serial connection of cluster instances.
 
 `cd clickhouse-docker-cluster`
 
-`docker-compose up`
+`docker-compose up -d`
 
 ### Steps
 
@@ -58,6 +58,16 @@ The project shows an example of a serial connection of cluster instances.
   `docker-compose exec app python app/create.py rep`
 
   After this command rows should be replicated
+
+* Deleting partitions:
+
+  `docker-compose exec app python app/delete.py 1`
+
+  `docker-compose exec app python app/delete.py 2`
+
+  This commands removed partitions of rows (1000 rows in our case) from
+  tables of first or second shard one at a time. Replicas partitions
+  should be deleted automatically.
 
 * Reset state at last:
 
