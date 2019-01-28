@@ -2,7 +2,7 @@ version: '3.7'
 services:
 
   app:
-    image: python
+    image: python:alpine
     container_name: app
     restart: on-failure
     networks:
@@ -10,7 +10,7 @@ services:
         ipv4_address: 172.19.237.10
     volumes:
       - ./app:/app
-    entrypoint: /bin/bash
+    entrypoint: /bin/sh
     tty: true
 
   client:
