@@ -2,7 +2,8 @@
 
 A ClickHouse cluster in a Docker containers.
 
-The project shows an example of a serial connection of cluster instances.
+The project shows an example of a serial connection of cluster instances
+with inserting and deleting rows.
 
 ## Getting started
 
@@ -11,6 +12,10 @@ The project shows an example of a serial connection of cluster instances.
 `docker 18.06.0+`
 
 `docker-compose`
+
+Command to check if CPU has support for SSE 4.2 (system requirement):
+
+`grep -q sse4_2 /proc/cpuinfo && echo "Supported" || echo "Not supported"`
 
 ### Installing
 
